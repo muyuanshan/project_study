@@ -25,8 +25,8 @@ contract BrookStake is
     using Math for uint256;
 
     // ******************************** INVARIANT *****************
-    byte256 public constant ADMIN_ROLE = keccak256("admin_role");
-    byte256 public constant UPGRADE_ROLE = keccak256("upgrde_role");
+    bytes32 public constant ADMIN_ROLE = keccak256("admin_role");
+    bytes32 public constant UPGRADE_ROLE = keccak256("upgrade_role");
 
     uint256 public constant ETH_PID = 0;
 
@@ -84,7 +84,7 @@ contract BrookStake is
     bool public claimPaused;
 
     // Brook token
-    IERC20 public brook;
+    IERC20 public Brook;
 
     // Total pool weight / Sum of all pool weights
     uint256 public totalPoolWeight;
@@ -197,7 +197,7 @@ contract BrookStake is
 
         startBlock = _startBlock;
         endBlock = _endBlock;
-        BrookPerBlock = _BrookPerBlock;
+        brookPerBlock = _brookPerBlock;
     }
 
     function _authorizeUpgrade(
