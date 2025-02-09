@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
+import Wallet from "./wallet";
 
 const links = [
   {
@@ -90,24 +91,40 @@ export default function NavBar() {
       </div>
       {/* 移动端菜单 */}
       {isOpenMenu && (
-        <div className="md:hidden absolute top-16 left-0 w-full bg-gray-900">
-          {links.map((link) => (
-            <div
-              onClick={() => setIsOpenMenu(false)}
-              key={link.href}
-              className="flex flex-col items-center space-y-4 border-b border-gray-800 py-5"
-            >
-              <Link href={link.href}>
-                <span
-                  className={`hover:text-[#8e67e9] ${
-                    pathname === link.href ? "text-[#8e67e9]" : ""
-                  }`}
-                >
-                  {link.label}
-                </span>
-              </Link>
-            </div>
-          ))}
+        <div className="md:hidden absolute top-16 left-0 w-full bg-[hsl(var(--background))]">
+          <div>
+            {links.map((link) => (
+              <div
+                onClick={() => setIsOpenMenu(false)}
+                key={link.href}
+                className="flex flex-col items-center space-y-4 border-b border-gray-800 py-5"
+              >
+                <Link href={link.href}>
+                  <span
+                    className={`hover:text-[#8e67e9] ${
+                      pathname === link.href ? "text-[#8e67e9]" : ""
+                    }`}
+                  >
+                    {link.label}
+                  </span>
+                </Link>
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-between p-4">
+            {!mounted ? null : (
+              <button
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              >
+                {theme === "dark" ? (
+                  <Sun className="w-5 h-5" />
+                ) : (
+                  <Moon className="w-5 h-5" />
+                )}
+              </button>
+            )}
+            <Wallet />
+          </div>
         </div>
       )}
     </nav>
